@@ -6,29 +6,26 @@
 		<artifactId>taotao-manage</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>taotao-manage-service</artifactId>
+	<artifactId>taotao-manage-mapper</artifactId>
 
 	<dependencies>
-		<!-- service依赖mapper -->
+		<!-- mapper依赖pojo -->
 		<dependency>
 			<groupId>com.taotao.manage</groupId>
-			<artifactId>taotao-manage-mapper</artifactId>
+			<artifactId>taotao-manage-pojo</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
+		<!-- Mybatis -->
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
 		</dependency>
 
-		<!-- Mybatis分页助手 -->
+		<!-- 通用mapper -->
 		<dependency>
-			<groupId>com.github.pagehelper</groupId>
-			<artifactId>pagehelper</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.github.jsqlparser</groupId>
-			<artifactId>jsqlparser</artifactId>
+			<groupId>com.github.abel533</groupId>
+			<artifactId>mapper</artifactId>
 		</dependency>
 
 	</dependencies>
