@@ -9,6 +9,14 @@
 	<artifactId>taotao-manage-service</artifactId>
 
 	<dependencies>
+
+		<!-- 依赖common -->
+		<dependency>
+			<groupId>com.taotao.common</groupId>
+			<artifactId>taotao-common</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
 		<!-- service依赖mapper -->
 		<dependency>
 			<groupId>com.taotao.manage</groupId>

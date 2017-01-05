@@ -21,5 +21,11 @@
 		<property name="prefix" value="/WEB-INF/views/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
+	
+	<!-- 配置文件上传视图解析器 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 文件上传大小 -->
+		<property name="maxUploadSize" value="5242880"></property>
+	</bean>
 
 </beans>

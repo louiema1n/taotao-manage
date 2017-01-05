@@ -9,8 +9,9 @@
 	<artifactId>taotao-manage-web</artifactId>
 	<packaging>war</packaging>
 
-	<!-- web依赖service -->
 	<dependencies>
+
+		<!-- web依赖service -->
 		<dependency>
 			<groupId>com.taotao.manage</groupId>
 			<artifactId>taotao-manage-service</artifactId>
@@ -68,6 +69,18 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+
+		<!-- 时间操作组件 -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+		</dependency>
+
+		<!-- 文件上传 -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
 		</dependency>
 
 	</dependencies>
