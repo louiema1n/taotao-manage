@@ -2,6 +2,7 @@ package com.taotao.manage.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +36,14 @@ public class ItemController {
      * @return
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> add(Item item, @RequestParam("desc") String desc) {
+    public ResponseEntity<Void> add(
+            Item item, 
+            @RequestParam("desc") String desc, 
+            @RequestParam("itemParams") String itemParams) {
         try {
 
             LOGGER.debug("传入参数成功，item = {}; desc = {}", item, desc);
-            this.itemService.save(item, desc);
+            this.itemService.save(item, desc, itemParams);
             if (LOGGER.isInfoEnabled()) {
                 LOGGER.info("新增商品成功，item = {}", item);
             }
@@ -64,6 +68,44 @@ public class ItemController {
             LOGGER.error("查询商品失败，page = " + page +", rows = " + rows, e);
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+    
+    /**
+     * 更新商品及描述
+     * @param item
+     * @param desc
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<Void> update(
+            Item item, 
+            @RequestParam("desc") String desc, 
+            @RequestParam("itemParams") Long itemParams) {
+        try {
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("传入参数成功，item = {}; desc = {}", item, desc);
+            }
+            if (StringUtils.isEmpty(item.getTitle())) {
+                //参数有误,400
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            }
+            Boolean count = this.itemService.update(item, desc, itemParams);
+            if (!count) {
+                //编辑失败，500
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("编辑商品失败，item={}", item);
+                }
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("新增商品成功，item = {}", item);
+            }
+            // 204
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); // 创建成功
+        } catch (Exception e) {
+            LOGGER.error("新增商品失败,item = {}", item, e);
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 创建失败
     }
 
 }

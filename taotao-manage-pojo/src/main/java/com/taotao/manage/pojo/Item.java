@@ -4,6 +4,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Table(name = "tb_item")
 public class Item extends BasePojo {
@@ -27,7 +28,11 @@ public class Item extends BasePojo {
     private Long cid;
 
     private Integer status;
-
+    
+    //商品类目名称
+    @Transient
+    private String name;
+    
     public Long getId() {
         return id;
     }
@@ -106,5 +111,12 @@ public class Item extends BasePojo {
                 + ", num=" + num + ", barcode=" + barcode + ", image=" + image + ", cid=" + cid + ", status="
                 + status + "]";
     }
-
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getName() {
+        return name;
+    }
+    
 }
