@@ -80,6 +80,8 @@ public class ItemService extends BaseService<Item> {
         itemDesc.setItemDesc(desc);
         Integer count2 = this.itemDescService.updateSelective(itemDesc);
         
-        return count1.intValue() == 1 && count2.intValue() == 1;
+        Integer count3 = this.itemParamItemService.updateParamsByItemId(item.getId(), itemParams);
+        
+        return count1.intValue() == 1 && count2.intValue() == 1 && count3 == 1;
     }
 }

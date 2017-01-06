@@ -80,7 +80,7 @@ public class ItemController {
     public ResponseEntity<Void> update(
             Item item, 
             @RequestParam("desc") String desc, 
-            @RequestParam("itemParams") Long itemParams) {
+            @RequestParam("itemParams") String itemParams) {
         try {
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("传入参数成功，item = {}; desc = {}", item, desc);
