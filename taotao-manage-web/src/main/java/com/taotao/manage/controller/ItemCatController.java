@@ -20,6 +20,11 @@ public class ItemCatController {
     @Autowired
     private ItemCatService itemCatService;
     
+    /**
+     * 根据pid查询商品类目
+     * @param pid
+     * @return
+     */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<ItemCat>> queryItemCatByPid(
             @RequestParam(value = "id", defaultValue = "0") Long pid) {
