@@ -8,7 +8,20 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
 	<!-- 定义注解扫描 -->
-	<mvc:annotation-driven />
+	<mvc:annotation-driven>
+		<!-- 消息转换器 -->
+		<mvc:message-converters>
+			<!-- 定义文本转化器 -->
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<constructor-arg index="0" value="UTF-8"></constructor-arg>
+			</bean>
+			<!-- 定义json转换器,支持json跨域 -->
+			<bean class="com.taotao.util.spring.exetend.converter.json.CallbackMappingJackson2HttpMessageConverter">
+				<!-- 参数名 -->
+				<property name="callbackName" value="callback"></property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
 
 	<!-- 定义Controller的扫描包 -->
 	<context:component-scan base-package="com.taotao.manage.controller" />

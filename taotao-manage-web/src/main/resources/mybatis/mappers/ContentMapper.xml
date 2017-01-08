@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taotao.manage.mapper.ContentMapper">
+
+<select id="queryListByCategoryId" resultType="Content">
+	select 
+	id, 
+	category_id categoryId, 
+	title, 
+	sub_title subTitle, 
+	title_desc titleDesc, 
+	url, 
+	pic, 
+	pic2, 
+	content, 
+	created, 
+	updated 
+	from tb_content where category_id = #{categoryId} order by updated DESC
+</select>
+
+</mapper>

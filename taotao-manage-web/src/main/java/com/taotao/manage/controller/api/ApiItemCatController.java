@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,15 +21,24 @@ public class ApiItemCatController {
     @Autowired
     private ItemCatService itemCatService;
     
-    private static final ObjectMapper MAPPER = new ObjectMapper(); 
+    //private static final ObjectMapper MAPPER = new ObjectMapper(); 
     
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<String> queryItemList(
-            @PathVariable(value = "callback") String callback) throws Exception {
-        ItemCatResult result = this.itemCatService.queryAllToTree();
-        String rs = MAPPER.writeValueAsString(result);
-        String json = callback + "(" + result +");" ;
-        return ResponseEntity.status(HttpStatus.OK).body(json);
+    public ResponseEntity<ItemCatResult> queryItemList() {
+        try {
+            ItemCatResult result = this.itemCatService.queryAllToTree();
+            //json = MAPPER.writeValueAsString(result);
+            if (result == null) {
+                // 404
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+            // 200
+            return ResponseEntity.status(HttpStatus.OK).body(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // 500
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
     
 }
