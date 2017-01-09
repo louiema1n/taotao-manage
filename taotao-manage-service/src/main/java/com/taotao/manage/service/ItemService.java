@@ -1,14 +1,18 @@
 package com.taotao.manage.service;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.github.abel533.entity.Example;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.taotao.common.bean.EasyUIResult;
+import com.taotao.common.service.ApiService;
 import com.taotao.manage.mapper.ItemMapper;
 import com.taotao.manage.pojo.Item;
 import com.taotao.manage.pojo.ItemCat;
@@ -29,6 +33,12 @@ public class ItemService extends BaseService<Item> {
     
     @Autowired
     private ItemParamItemService itemParamItemService;
+    
+    @Autowired
+    private ApiService apiService;
+    
+    @Value("${TAOTAO_WEB_ITEM_URL}")
+    private String TAOTAO_WEB_ITEM_URL ;
 
     public void save(Item item, String desc, String itemParams) {
 
@@ -81,6 +91,14 @@ public class ItemService extends BaseService<Item> {
         Integer count2 = this.itemDescService.updateSelective(itemDesc);
         
         Integer count3 = this.itemParamItemService.updateParamsByItemId(item.getId(), itemParams);
+        
+        //通知其他系统,商品数据被修改
+        try {
+            String url = TAOTAO_WEB_ITEM_URL + "/item/cache/" + item.getId() + ".html";
+            this.apiService.doPost(url);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
         return count1.intValue() == 1 && count2.intValue() == 1 && count3 == 1;
     }
