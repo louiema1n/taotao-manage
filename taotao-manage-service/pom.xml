@@ -46,6 +46,13 @@
 			<version>2.6.0</version>
 		</dependency>
 
+		<!-- spring-rabbitmq -->
+		<dependency>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit</artifactId>
+			<version>1.4.0.RELEASE</version>
+		</dependency>
+
 	</dependencies>
 
 </project>
